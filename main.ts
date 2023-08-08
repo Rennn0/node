@@ -28,13 +28,12 @@ app.use("/user", router)
 
 
 
-
 /////////////////////////////////////
 //defaults
 /////////////////////////////////////
 
-app.all("*", (q: Request, s: Response) => {
-    return s.status(404).send({ message: "not found" })
+app.all("*", (req: Request, res: Response) => {
+    return res.status(404).send({ message: "not found" })
 })
 
 app.listen(Number(port), host, () => {

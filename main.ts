@@ -6,7 +6,7 @@ import { router } from './routes/user';
 /////////////////////////////////////
 // host config
 /////////////////////////////////////
-const host: string = "127.0.0.1";
+const host: string = "0.0.0.0";
 const port: number | string = process.env.PORT || 5000;
 
 

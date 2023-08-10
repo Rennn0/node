@@ -41,5 +41,5 @@ app.use("/user", router)
 /////////////////////////////////////
 
 app.all("*", (req: Request, res: Response) => {
-    return res.status(404).send({ message: "not found" })
+    return res.status(404).send({ message: "Wrong Request" })
 })

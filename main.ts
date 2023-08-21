@@ -42,12 +42,31 @@ app.all("*", (req: Request, res: Response) => {
 })
 
 
-mongoose
-    .connect(uri)
-    .then(() => {
-        console.log("Connected to _ ", config.db);
-        app.listen(Number(port), host, () => {
-            console.log(`Server ${host}:${port}`);
-        });
-    })
-    .catch((error) => console.error(error))
+// mongoose
+//     .connect("mongodb://localhost:27017")
+//     .then(() => {
+//         console.log("Connected to _ ", config.db);
+//         app.listen(Number(port), host, () => {
+//             console.log(`Server ${host}:${port}`);
+//         });
+//     })
+//     .catch((error) => console.error(error))
+// Do not expose your Neon credentials to the browser
+// .env
+
+
+// app.js
+import postgres from 'postgres';
+import dotenv from 'dotenv'
+dotenv.config();
+
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+const URL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
+const sql = postgres(URL, { ssl: 'require' });
+
+
+async function startPostgres() {
+    await sql`select*from Users where firstname='LUKA'`.then(r => console.log(r))
+}
+
+startPostgres();
